@@ -1,0 +1,147 @@
+import requests
+
+from bs4 import BeautifulSoup
+
+url = "http://www.imdb.com/chart/top"
+
+response = requests.get(url)
+
+html_icerigi = response.content
+
+soup = BeautifulSoup(html_icerigi,"html.parser")
+
+a = float(input("Rating'i giriniz:"))
+
+
+basliklar = soup.find_all("td",{"class":"titleColumn"})
+ratingler = soup.find_all("td",{"class","ratingColumn imdbRating"})
+
+
+
+
+for baslik, rating in zip(basliklar,ratingler):
+    baslik = baslik.text
+    rating = rating.text
+
+    baslik = baslik.strip()
+    baslik = baslik.replace("\n","")
+
+    rating = rating.strip()
+    rating = rating.replace("\n","")
+
+    if (float(rating) > a):
+        print("Film ismi: {} Filmin Ratingi : {}".format(baslik,rating))
+
+"""  ********************************************************************  """
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import sys
+
+mesaj = MIMEMultipart()
+
+mesaj["From"] = "coskun.m.murat@gmail.com"
+
+mesaj["To"] = "coskun.m.murat@gmail.com"
+
+mesaj["Subject"] = "Smtp Mail Gönderme"
+
+
+yazi = """
+
+Smtp ile mail gönderiyorum.
+
+Mustafa Murat Coşkun
+
+
+"""
+
+
+mesaj_govdesi = MIMEText(yazi,"plain")
+
+mesaj.attach(mesaj_govdesi)
+
+try:
+    mail = smtplib.SMTP("smtp.gmail.com",587)
+
+    mail.ehlo()
+
+    mail.starttls()
+
+    mail.login("","")
+
+    mail.sendmail(mesaj["From"],mesaj["To"],mesaj.as_string())
+
+    print("Mail Başarıyla Gönderildi....")
+
+    mail.close()
+
+except:
+    sys.stderr.write("Bir sorun oluştu!")
+    sys.stderr.flush()
+
+"""  *******************************************************  """
+import os
+from datetime import datetime
+
+
+for klasör_yolu,klasör_isimleri,dosya_isimler  in os.walk("C:/Users/user/Desktop"):
+    for i in klasör_isimleri:
+        if (i.startswith("kr")):
+            print(i)
+
+
+
+
+
+
+
+#from datetime import datetime
+
+# print(dir(os))
+
+# print(os.getcwd())
+
+# os.chdir("C:/Users/user/Desktop/")
+
+
+# print(os.getcwd())
+
+
+# print(os.listdir())
+
+#os.mkdir("Deneme1")
+
+#os.makedirs("Deneme2/Deneme3")
+
+#os.rmdir("Deneme2/Deneme3")
+
+# os.rename("Deneme1","Deneme2")
+# os.removedirs("Deneme2/Deneme3")
+
+# os.rename("test.txt","test2.txt")
+
+# print(os.stat("test2.txt"))
+
+# degistirilme = os.stat("test2.txt").st_mtime
+
+# print(datetime.fromtimestamp(degistirilme))
+
+
+"""for klasör_yolu,klasör_isimleri,dosya_isimleri in os.walk("C:/Users/user/Desktop"):
+
+
+    print("Current Path",klasör_yolu)
+    print("Directories",klasör_isimleri)
+    print("Dosyalar",dosya_isimleri)
+    print("**********************************")"""
+
+
+
+
+
+
+
+
+
+
