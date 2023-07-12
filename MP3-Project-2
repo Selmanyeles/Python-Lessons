@@ -1,1 +1,94 @@
+from şarkı import *
 
+print("""******************************************
+      
+Şarkı Liste Programına Hoşgeldiniz.
+
+İşlemler;
+
+1- Şarkı Bilgilerini Göster
+
+2- Şarkı Sorgulama
+
+3- Şarkı Ekle
+
+4-Şarkı Sil
+
+5-Toplam Şarkı Süresi
+      
+Çıkmak İçin 'q'ya Basınız.
+******************************************""")
+
+liste = Liste()
+
+while True:
+    işlem = input("Yapacağınız İşlem =")
+    
+    if(işlem == "q"):
+        
+        print("Programdan Sonlandırılıyor......")
+        print("Yine Bekleriz......")
+        break
+    
+    elif(işlem == "1"):
+        liste.sarkıları_goster()
+        
+    elif(işlem == "2"):
+        if liste.sorgulama():
+            time.sleep(1)
+            continue
+        else:
+            isim = input("Hangi Şarkıyı Sorgulamak İstiyorsunuz ? ")
+            print("Şarkı Sorgulanıyor....")
+            time.sleep(2)
+            
+            liste.sarkı_sorgula(isim)
+        
+    elif(işlem == "3"):
+        isim = input("Şarkı İsmi =")
+        sanatcı = input("Sanatçı =")
+        albüm = input("Şarkı Albümü =")
+        sirket = input("Şirket =")
+        süre = input("Şarkı Süresi =")
+        
+        yeni_sarkı = Sarkı(isim,sanatcı,albüm,sirket,süre)
+        
+        print("Şarkı Ekleniyor......")
+        
+        time.sleep(2)
+        
+        liste.sarkı_ekle(yeni_sarkı)
+        print("Şarkı Eklendi......")
+        
+    elif(işlem == "4"):
+        if liste.sorgulama():
+            print("Listede Şarkı Yok Lütfen Şarkı Ekleyin.")
+            time.sleep(1)
+            continue
+        else:
+            isim = input("Hangi şarkıyı Silmek İstiyorsunuz ?")
+            if (liste.sorgulama2(isim) == True):
+                time.sleep(1)
+                continue
+            else:
+                cevap = input("Emin Misiniz ? (E/H)")
+                if (cevap == "E"):
+                    print("Şarkı Siliniyor.....")
+                    time.sleep(2)
+                    liste.sarkı_sil(isim)
+                    print("Şarkı Silindi....")
+                else:
+                    time.sleep(2)
+                    continue
+                    
+    elif(işlem == "5"):
+        if liste.sorgulama():
+            time.sleep(1)
+            continue
+        else:
+            print("Süre Hesaplanıyor......")
+            time.sleep(1)
+            liste.toplam_süre()
+            time.sleep(1)
+            
+             
