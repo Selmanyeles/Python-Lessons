@@ -1,0 +1,42 @@
+import requests
+
+from bs4 import BeautifulSoup
+
+url = "https://kur.doviz.com/serbest-piyasa/euro"
+
+response = requests.get(url)
+
+html_iceriği = response.content
+
+soup = BeautifulSoup(html_iceriği,"html.parser")
+
+dolar = soup.find("span",{"data-socket-key":"USD"})
+
+dolar = dolar.text
+
+euro = soup.find("span",{"data-socket-key":"EUR"})
+
+euro = euro.text
+
+strlin = soup.find("span",{"data-socket-key":"GBP"})
+
+strlin = strlin.text
+
+
+while True:
+    birinci = input("Lütfen Öğrenmek İstediğiniz Dövizi Girin:")
+    if birinci == "dolar":
+        print("1 Dolar {} Türk Lirası ediyor".format(dolar))
+
+    elif birinci == "euro":
+        print("1 Euro {} Türk Lirası ediyor".format(euro))
+
+    elif birinci == "strlin":
+        print("1 Sterlin {} Türk Lirası ediyor".format(strlin))
+
+    elif birinci == "q":
+        break
+    else:
+        print("Lütfen Geçerli Bir Döviz Giriniz.....")
+
+
