@@ -1,0 +1,132 @@
+import sqlite3
+
+import time
+
+class Sarkı():
+    
+    def __init__(self,isim,sanatcı,albüm,sirket,süre):
+        self.isim = isim
+        self.sanatcı = sanatcı
+        self.albüm = albüm
+        self.sirket = sirket
+        self.süre = süre
+        
+    def __str__(self):
+        
+        return "Şarkı İsmi ==> {}\nSanatçı ==> {}\nAlbüm ==> {}\nŞirket ==> {}\nŞarkı Süresi ==> {}\n".format(self.isim,self.sanatcı,self.albüm,self.albüm,self.süre)
+    
+
+class Liste():
+    
+    def __init__(self):
+        
+        self.baglanti_olustur()
+        
+    def baglanti_olustur(self):
+        
+        self.baglanti = sqlite3.connect("liste.db")
+        
+        self.cursor = self.baglanti.cursor()
+        
+        sorgu = "Create Table If Not exists liste (isim TEXT,sanatcı TEXT,albüm TEXT,sirket TEXT,süre FLOAT)"
+        
+        self.cursor.execute(sorgu)
+        
+        self.baglanti.commit()
+        
+    def baglantiyi_kes(self):
+        
+        self.baglanti.close()
+        
+    def sarkıları_goster(self):
+        
+        sorgu = "Select * From liste"
+        
+        self.cursor.execute(sorgu)
+        
+        liste = self.cursor.fetchall()
+        
+        if (len(liste) == 0):
+            print("Listede Hiç Şarkı Yok.....")
+            
+        else:
+            for i in liste:
+                şarkı = Sarkı(i[0],i[1],i[2],i[3],i[4])
+                print(şarkı)
+                
+    def sarkı_sorgula(self,isim):
+        
+        sorgu = "Select * From liste where isim = ?"
+        
+        self.cursor.execute(sorgu,(isim,))
+        
+        liste = self.cursor.fetchall()
+        
+        if(len(liste) == 0):
+            print("Böyle Bir Şarkı....")
+        else:
+            şarkı = Sarkı(liste[0][0],liste[0][1],liste[0][2],liste[0][3],liste[0][4])
+
+            print(şarkı)
+            
+    def sarkı_ekle(self,sarkı):
+        
+        sorgu = "Insert into liste Values(?,?,?,?,?)"
+        
+        self.cursor.execute(sorgu,(sarkı.isim,sarkı.sanatcı,sarkı.albüm,sarkı.sirket,sarkı.süre))
+        
+        self.baglanti.commit()
+        
+    def sarkı_sil(self,isim):
+        
+        sorgu = "Delete From liste where isim = ?"
+        
+        self.cursor.execute(sorgu,(isim,))
+        
+        self.baglanti.commit()
+        
+    def toplam_süre(self):
+        
+        sorgu = "Select süre From liste"
+        
+        self.cursor.execute(sorgu)
+        
+        süre_liste = self.cursor.fetchall()
+        
+        süre = 0
+        
+        for i in süre_liste:
+            
+            for j in i:
+                süre += j
+                
+            
+        return print(süre)            
+        
+                
+        
+    def sorgulama(self):
+        sorgu = "Select * From liste"
+            
+        self.cursor.execute(sorgu)
+            
+        liste = self.cursor.fetchall()
+        
+        if(len(liste) == 0):
+            print("Listenizde Hiç Şarkı Yok. Lütfen Şarkı Ekleyiniz!!.....")
+            return False
+        
+        
+        
+        
+    def sorgulama2(self,isim):
+        sorgu = "Select * From liste where isim = ?"
+            
+        self.cursor.execute(sorgu,(isim,))
+            
+        liste = self.cursor.fetchall()
+        if(len(liste) == 0):
+            print("Listenizde Böyle Bir Şarkı Yok....")
+            
+        return False
+        
