@@ -1,0 +1,51 @@
+a = int(input("a:"))
+b = int(input("b:"))
+c = int(input("c:"))
+
+çarpım = a * b * c
+
+print("{} x {} x {} = {} dir".format(a,b,c,çarpım))
+
+
+""""  #######################################  """
+boy = float(input("Boy:"))
+kilo = int(input("Kilo:"))
+
+print("Beden Kitle İndeksi:",kilo / (boy ** 2))
+
+""""  #########################################  """
+
+yakan_miktar = float(input("Kilometrede yakan miktar:"))
+
+kilometre = int(input("Kaç km yol yaptınız:"))
+
+print("Tutar: {} tl".format(yakan_miktar * kilometre))
+
+""""  ############################################  """
+
+ad = input("Ad:")
+soyad = input("Soyad:")
+numara = input("Numara:")
+print("\nBilgiler...\n")
+print("{}\n{}\n{}".format(ad,soyad,numara))
+
+""""  ###########################################    """
+
+a = input("a:")
+b = input("b:")
+
+print("Değiştirilmeden Önce Değerler\na: {} b: {}\n".format(a,b))
+
+a,b = b,a
+
+print("Değiştirildikten Sonraki Değerler\na: {} b: {}\n".format(a,b))
+
+"""  ##############################################   """
+
+a = int(input("a:"))
+
+b = int(input("b:"))
+
+c =  (a ** 2 + b ** 2) ** 0.5
+
+print("Hipotenüs: ",c)
