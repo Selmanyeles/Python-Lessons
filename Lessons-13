@@ -1,0 +1,104 @@
+class Kuvvet3():
+    def __init__(self,max = 0):
+
+        self.max = max
+        self.kuvvet = 0
+
+    def __iter__(self):
+
+        return self
+    def __next__(self):
+        if (self.kuvvet <= self.max):
+            sonuc = 3 ** self.kuvvet
+
+            self.kuvvet += 1
+
+            return sonuc
+        else:
+            self.kuvvet = 0
+            raise StopIteration
+
+
+kuvvet = Kuvvet3(6)
+
+for i in kuvvet:
+    print(i)
+
+for j in kuvvet:
+    print(j)
+
+"""  **********************************************  """
+
+def fibonacci():
+
+    a = 1
+    b = 1
+    yield a
+    yield b
+
+    while True:
+
+        a,b = b, a+b
+
+        yield b
+
+for sayı in fibonacci():
+
+    if (sayı > 100000):
+        break
+    print(sayı)
+    
+"""  ************************************************  """
+
+class Kareler():
+    
+    def __init__(self,maksimum):
+        self.maksimum = maksimum
+        
+        self.sayı = 1
+        
+    def __iter__(self):
+        return self
+    def __next__(self):
+        
+        if (self.sayı <= self.maksimum):
+            
+            sonuc =  self.sayı ** 2
+            self.sayı += 1
+            return sonuc
+        else:
+            self.sayı = 1
+            raise StopIteration
+    
+kareler = Kareler(5)
+
+for i in kareler:
+    print(i)
+    
+"""  ***********************************************  """
+
+def asal_mı(sayı):
+    i =  2
+    
+    while i < sayı:
+        if (sayı % i == 0):
+            return False
+        i += 1
+    return True
+def asal_generator():
+    i =  2
+    while True:
+        if (asal_mı(i)):
+            yield i
+        i += 1
+
+for sayı in asal_generator():
+    if (sayı > 1000):
+        break
+    print(sayı)
+
+
+
+
+
+
